@@ -1,0 +1,63 @@
+Vào thư mục conf trong tomcat, mở file tomcat-users.xml
+thêm role và user như sau:
+
+<role rolename="manager-gui"/>
+<user username="admin" password="admin" roles="manager-gui,manager-script,manager-jmx,manager-status"/>
+
+<----------------------------------------------------------->
+Trong webapps\manager\WEB-INF\web.xml chúng ta sửa dòng sau:
+
+<multipart-config>
+<!-- 50MB max -->
+<max-file-size>52428800</max-file-size> 
+<max-request-size>52428800</max-request-size>
+<file-size-threshold>0</file-size-threshold>
+</multipart-config>
+
+Đổi thành 125829120 tương đương 120MB
+
+Nếu không Depoly được thì coppy file geoserver.war vào thư mục D:\XAMPP\tomcat\webapps
+Và khởi động lại Tomcat trong XAMPP
+<----------------------------------------------------------->
+
+No ‘Access-Control-Allow-Origin’ header is present on the requested resource. 
+Origin ‘http://localhost&#3128; is therefore not allowed access.
+
+Chúng ta vào <thư mục Tomcat>/conf/web.xml. 
+Tìm đến phần config cho filter (Built In Filter Mappings được comment), thêm như sau:
+
+ <filter>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+    <init-param>
+        <param-name>cors.allowed.origins</param-name>
+        <param-value>http://localhost:3128, http://localhost:8080</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.allowed.methods</param-name>
+        <param-value>GET,POST,HEAD,OPTIONS,PUT</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.allowed.headers</param-name>
+        <param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.exposed.headers</param-name>
+        <param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.support.credentials</param-name>
+        <param-value>true</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.preflight.maxage</param-name>
+        <param-value>10</param-value>
+    </init-param>
+    </filter>
+    <filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+
