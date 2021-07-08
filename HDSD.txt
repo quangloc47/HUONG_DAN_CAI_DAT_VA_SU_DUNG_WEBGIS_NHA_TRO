@@ -5,7 +5,8 @@ thêm role và user như sau:
 <user username="admin" password="admin" roles="manager-gui,manager-script,manager-jmx,manager-status"/>
 
 <----------------------------------------------------------->
-Trong webapps\manager\WEB-INF\web.xml chúng ta sửa dòng sau:
+
+Trong D:\XAMPP\tomcat\webapps\manager\WEB-INF\web.xml chúng ta sửa dòng sau:
 
 <multipart-config>
 <!-- 50MB max -->
@@ -18,6 +19,17 @@ Trong webapps\manager\WEB-INF\web.xml chúng ta sửa dòng sau:
 
 Nếu không Depoly được thì coppy file geoserver.war vào thư mục D:\XAMPP\tomcat\webapps
 Và khởi động lại Tomcat trong XAMPP
+
+<----------------------------------------------------------->
+
+GeoServer sau khi cài đặt phải sửa lại user admin password để đăng nhập được, cách sửa lại như sau: 
+Vào thư mục cài đặt GeoServer, tìm đến D:\XAMPP\tomcat\webapps\geoserver\data\security\usergroup\default\users.xml. 
+Sửa lại dòng code
+<user enabled="true" name="admin" password="digest1:D9miJH/hVgfxZJscMafEtbt...JOSV4POi55PQI4tw"/>
+
+thành
+<user enabled="true" name="admin" password="admin"/>
+
 <----------------------------------------------------------->
 
 No ‘Access-Control-Allow-Origin’ header is present on the requested resource. 
